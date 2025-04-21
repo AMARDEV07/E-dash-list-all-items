@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  width: 100%;
+  background-color: gainsboro;
+}
+
+.logo-div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo-div img {
+  width: 30px;
+}
+.header ul {
+  display: flex;
+  gap: 4rem;
+  padding: 1rem;
+  list-style: none;
+  font-size: 1rem;
+}
+.header li a {
+  text-decoration: none;
+}
+.footer {
+  width: 100%;
+  margin-top: 4rem;
+  text-align: center;
+
+  background-color: rgb(232, 225, 225);
+  bottom: 0;
+  position: absolute;
+}
+
+.signup-h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.signup-div {
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  justify-content: center;
+}
+
+.signup-details {
+  border-radius: 10px;
+  text-align: center;
+
+  width: 40%;
+}
+
+.icon {
+  background-color: lightgrey;
+  height: 3.5rem;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  width: 4rem;
+  text-align: center;
+  padding: 10px;
+  padding-right: 13px;
+  border-radius: 20px;
+}
+.Header-div{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column ;
+  padding-left:4rem;
+}
+.signup-details input {
+  display: block;
+  margin: 1.5rem 2.5rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 2.8rem;
+  border: none;
+  background-color: rgb(247, 241, 241);
+}
+
+.sigup-p {
+  font-size: 14px;
+  color: gray;
+}
+.signup-details button {
+  width: 80%;
+  margin-left: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 3rem;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.signup-img-div {
+  width: 40%;
+}
+.signup-img-div img {
+  width: 100%;
+  height: 35rem;
+  border-radius: 4px;
+}
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+.password-input-wrapper {
+  margin-top: -20px;
+}
+
+
+
+
+.login-details {
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  border: 1px solid gray;
+  background: #22c1c3;
+  background: -webkit-linear-gradient(
+    249deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    249deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  background: linear-gradient(
+    249deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22C1C3", endColorstr="#FDBB2D", GradientType=0);
+
+  /* box-shadow: 10px 5px 10px 2px; */
+  border-radius: 10px;
+  /* background-color: rgb(204, 185, 185); */
+
+  text-align: center;
+  padding: 4rem;
+  width: 40%;
+}
+.login-details input {
+  display: block;
+  margin: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  width: 90%;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 2.8rem;
+  border: none;
+  background-color: rgb(247, 241, 241);
+}
+
+.login-details button {
+  width: 90%;
+  border-radius: 10px;
+  height: 3rem;
+  margin-left: 1rem;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-size: 0.9rem;
+}
+.new-account {
+  width: 100%;
+  margin-top: 1rem;
+  text-decoration: none;
+  text-align: center;
+}
+.old-acc {
+  text-align: center;
+  padding-right: 2rem;
+  margin-top: 1rem;
+
+}
+.old-acc p {
+  font-size: 0.9rem;
+
+}
+
+
+
+
+/* add product  */
+.add-product-main{
+  width: 100%;
+ 
+  /* background: red; */
+}
+.add-product-header{
+  background-color: green;
+  margin-top: 4rem;
+  width: 100%;
+  text-align: center;
+}
+.add-product-inp-div{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.InputBox{
+  width: 50%;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+.invalid-input{
+  color: red;
+  width: 50%;
+  font-size: 0.9rem;
+
+
+}
+.add-product-btn-div{
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
+}
+.addbtn{
+  width: 10%;
+  padding: 1rem;
+}
+
+/* product listing  */
+.product-list-header h1{
+  margin-top: 3rem;
+  background-color: green;
+}
+.product-div{
+  width: 100%;
+  text-align: center;
+}
+.product-list-header{
+  width: 100%;
+  margin-top: 3rem;
+  text-align: center;
+ 
+}
+.product-list-ul{
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+
+
+
+.product-list-ul li{
+ 
+  border: 2px solid gainsboro;
+  border-radius: 10px 10px 10px 10px;
+  width: 25%;
+  padding: 1rem;
+  height: 4rem;
+ 
+}
+.product-list{
+  width: 100%;
+  margin-top: 2rem;
+}
+ 
+.product-list ul{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  margin: 0 auto;
+}
+.product-list ul li{
+  list-style: none;
+
+  border: 2px solid gainsboro;
+  border-radius: 10px 10px 10px 10px;
+  width: 25%;
+  padding: 0.5rem;
+  font-style: italic;
+
+  height: 3rem;
+ 
+  
+}
+
+
+
+
+@media (max-width: 957px) {
+  .signup-details {
+    width: 70%;
+    padding:3rem 0rem;
+    border: 1px solid gainsboro;
+  }
+  .signup-details .icon {
+    margin-right: 3rem;
+  }
+  .Header-div .icon{
+    margin-left: 2rem;
+  }
+  .signup-details input {
+    width: 80%;
+  }
+
+  .signup-details button {
+    width: 80%;
+    margin-right: 4rem;
+  }
+
+  .signup-img-div {
+    display: none;
+  }
+}
+@media (max-width: 670px) {
+  .signup-details {
+    width: 90%;
+    padding:3rem 0rem;
+  }
+  
+  }
+ 
+ 
+
+@media (max-width: 515px) {
+  .logo-div{
+    width:50%;
+    gap: 0.2rem;
+   
+  }
+  
+  .logo-div span{
+   display: none;
+   
+  }
+ .header ul{
+
+  gap: 1rem;
+  font-size:1rem ;
+  padding-left: 3rem;
+ }
+ .Header-div{
+  width: 100%;
+ margin-left: -2rem;
+  
+}
+.Header-div .icon{
+  margin-left: 3.5rem;
+}
+
+ .signup-h1{
+  width: 100%;
+  font-size: 1.5rem;
+ }
+ .sigup-p{
+  font-size: 10px;
+ }
+ .old-acc p {
+  font-size: 0.6rem;
+  margin-left: 3rem;
+
+
+
+}
+.fa-solid, .fas {
+  font-size: 13px;
+}
+
+}
