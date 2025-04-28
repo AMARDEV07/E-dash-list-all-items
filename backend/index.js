@@ -163,7 +163,7 @@ function verifyToken(req, res, next) {
   if (token) {
     // Split by space (not empty string) to extract token from "Bearer <token>"
     token = token.split(' ')[1];
-    console.warn("middleware called", token);
+    // console.warn("middleware called", token);
     
     // Verify token
     jwt.verify(token, jwtKey, (err, valid) => {

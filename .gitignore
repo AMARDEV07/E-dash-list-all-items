@@ -19,7 +19,7 @@ pnpm-debug.log*
 
 # IDE files
 .vscode/
-.idea/
+.idea/git
 *.suo
 *.ntvs*
 *.njsproj

@@ -19,7 +19,11 @@ function ProductDetail() {
     
     try {
       setLoading(true);
-      const result = await fetch(`http://localhost:3000/product/${params.id}`);
+      const result = await fetch(`http://localhost:3000/product/${params.id}`,{
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+        }
+      });
       const data = await result.json();
       
       setProduct(data);
