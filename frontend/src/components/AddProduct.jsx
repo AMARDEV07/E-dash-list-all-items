@@ -1,45 +1,89 @@
 import { useState } from 'react';
 
+
 function AddProduct() {
-    // State variables to store input values
+
+
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
     const [company, setCompany] = useState("");
-    const [error, setError] = useState(false); // To track form validation
+    const [description, setDescription] = useState("");
+    const [features, setFeatures] = useState("");
+    const [specifications, setSpecifications] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [error, setError] = useState(false); // Validation check karne ke liye
 
-    // Function to handle product submission
+
+
     const addProduct = async () => {
-        // Basic input validation
+
+        // Basic validation check
+
         if (!name || !price || !category || !company) {
-            setError(true); // Show validation messages
-            return; // Stop execution if any field is empty
+            setError(true); // Agar field empty hai toh error dikhao
+            return; 
         }
 
-        // Get logged-in user's ID from localStorage
+
+
+        // Logged-in user ka ID localStorage se nikaal rahe hain
         const user = JSON.parse(localStorage.getItem("user"));
         const userId = user._id;
         console.log("User ID is:", userId);
 
-        // Send POST request to backend with product data
+
+
+        // Features ko comma se split karke array bana rahe hain
+        const featuresArray = features ? features.split(',').map(item => item.trim()) : [];
+        // Specifications ko JSON me parse karne ki koshish
+        let specsObject = {};
+        try {
+            specsObject = specifications ? JSON.parse(specifications) : {};
+        } catch (err) {
+            // Agar JSON nahi bana toh as a string object me daal diya
+            specsObject = { details: specifications };
+        }
+
+
+
+        // Backend ko POST request bhej rahe hain product details ke saath
+
         const result = await fetch("http://localhost:3000/add-product", {
             method: "POST",
-            body: JSON.stringify({ name, price, category, company, userId }),
+            body: JSON.stringify({
+                name,
+                price,
+                category,
+                company,
+                userId,
+                description,
+                features: featuresArray,
+                specifications: specsObject,
+                imageUrl
+            }),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
+
         });
 
         const data = await result.json();
         console.log("Product added:", data);
 
-        // Clear all inputs after submission
+
         setName("");
         setPrice("");
         setCategory("");
         setCompany("");
-        setError(false); // Reset error state
+        setDescription("");
+        setFeatures("");
+        setSpecifications("");
+        setImageUrl("");
+        setError(false);
     };
+
 
     return (
         <div className='add-product-main'>
@@ -48,7 +92,7 @@ function AddProduct() {
             </div>
 
             <div className='add-product-inp-div'>
-                {/* Input: Product Name */}
+                {/* Product ka naam input */}
                 <input
                     type="text"
                     placeholder="Enter product name"
@@ -58,7 +102,7 @@ function AddProduct() {
                 />
                 {error && !name && <span className='invalid-input'>Enter valid name...</span>}
 
-                {/* Input: Product Price */}
+                {/* Product ka price input */}
                 <input
                     type="text"
                     placeholder="Enter product price"
@@ -68,7 +112,7 @@ function AddProduct() {
                 />
                 {error && !price && <span className='invalid-input'>Enter valid price...</span>}
 
-                {/* Input: Product Category */}
+                {/* Product category input */}
                 <input
                     type="text"
                     placeholder="Enter product category"
@@ -78,7 +122,7 @@ function AddProduct() {
                 />
                 {error && !category && <span className='invalid-input'>Enter valid category...</span>}
 
-                {/* Input: Company Name */}
+                {/* Company name input */}
                 <input
                     type="text"
                     placeholder="Enter company name"
@@ -87,10 +131,47 @@ function AddProduct() {
                     onChange={(e) => setCompany(e.target.value)}
                 />
                 {error && !company && <span className='invalid-input'>Enter valid company...</span>}
+
+                {/* Product description input (textarea) */}
+                <textarea
+                    placeholder="Enter detailed product description"
+                    className='InputBox'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    style={{ height: '100px' }}
+                />
+
+                {/* Product features input (comma separated) */}
+                <input
+                    type="text"
+                    placeholder="Enter features (comma-separated)"
+                    className='InputBox'
+                    value={features}
+                    onChange={(e) => setFeatures(e.target.value)}
+                />
+
+                {/* Product specifications input (JSON ya normal text) */}
+
+                <textarea
+                    placeholder="Enter specifications (JSON format preferred or normal)"
+                    className='InputBox'
+                    value={specifications}
+                    onChange={(e) => setSpecifications(e.target.value)}
+                    style={{ height: '100px' }}
+                />
+
+                {/* Product image ka URL input */}
+
+                <input
+                    type="text"
+                    placeholder="Enter product image URL"
+                    className='InputBox'
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                />
             </div>
 
             <div className='add-product-btn-div'>
-                {/* Button to trigger addProduct */}
                 <button className='addbtn' onClick={addProduct}>Add Product</button>
             </div>
         </div>

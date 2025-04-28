@@ -1,34 +1,34 @@
-// Import required modules
 const express = require("express");
-const cors = require("cors"); // CORS middleware to allow cross-origin requests
+const cors = require("cors");
 require("./db/config");
 const User = require("./db/user");
-const Product=require("./db/product");
+const Product = require("./db/Product");
+const jwt = require("jsonwebtoken");
+const jwtKey = "e-comm"; 
 
+const mongoose = require("mongoose");
 
 const app = express();
 
-// Middleware setup
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Parse incoming JSON requests
+app.use(cors());
+app.use(express.json());
 
-// Route: Register a new user
-app.post("/register", async (req, resp) => {
-  try {
-    // Create a new user document using the request body
-    let newUser = new User(req.body);
-    // Save the user to the database
-    let result = await newUser.save();
-    // Convert Mongoose document to plain JavaScript object
-    result = result.toObject();
-    // Remove password field before sending the response (for security)
-    delete result.password;
-    // Send the response back to client (user data without password)
-    resp.send(result);
-  } catch (error) {
-    // Log error and send generic error message to client
-    console.error("Error registering user:", error);
-  }
+
+
+// User Register
+app.post("/register", async (req, res) => {
+  let user = new User(req.body); // Frontend se aaya data se user create
+  let result = await user.save(); // MongoDB me save
+  result = result.toObject(); // Object me convert
+  delete result.password; // Password delete kar diya for security
+
+  // JWT token generate kar rahe hain (2 hour ke liye valid hoga)
+  jwt.sign({ result }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+    if (err) {
+      res.send({ result: "something went wrong" });
+    } 
+    res.send({result,auth:token})
+  });
 });
 
 
@@ -36,57 +36,153 @@ app.post("/register", async (req, resp) => {
 
 
 
-// API for user login
-app.post("/login", async (req, resp) => {
-  try {
-    // Check if both email and password are provided
-    if (req.body.email && req.body.password) {
-      const user = await User.findOne(req.body) // Look for a user matching the provided email and password
-        .select("-password"); // Exclude password from the result
 
-      if (user) {
-        resp.send(user); // If user exists, send user data back
-      } else {
-        resp.send({ result: "No user found" }); // If no user found with provided credentials
-      }
+// User Login karne ka route
+app.post("/login", async (req, res) => {
+  
+  // Pehle check kar rahe hain ki email aur password aaye hain ya nahi
+  if (req.body.email && req.body.password) {
+    // DB me user ko dhoond rahe hain, password exclude kar ke
+    const user = await User.findOne(req.body).select("-password");
+
+    if (user) {
+      // Token generate karke client ko bhej rahe hain sign function send with 2
+     
+
+      jwt.sign({ user }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+        if (err) {
+          res.send({ result: "something went wrong" });
+        }
+        res.send({ user, auth: token });
+      })
+
+
     } else {
-      resp.send({ result: "Please provide both email and password" }); // If either email or password is missing in the request
+      res.send({ result: "No user found" });
     }
-  } catch (error) {
-    console.error("Login error:", error); // Catch and log any unexpected errors
+  } else {
+    res.send({ result: "Please provide both email and password" });
   }
 });
 
 
-//add product api 
 
-app.post("/add-product", async (req, res) => {
-  try {
-    let newProduct = new Product(req.body); // req.body contains the data
-    let result = await newProduct.save();
-    res.send(result); // send the saved product back to the client
+
+
+
+
+// Naya product add karne ka route
+
+app.post("/add-product",verifyToken, async (req, res) => {
+  const product = new Product(req.body); 
+  const result = await product.save(); 
+  res.send(result); 
+});
+
+
+
+
+// Sare products fetch(list) karne ka route
+
+app.get("/products",verifyToken, async (req, res) => {
+  const products = await Product.find();
+  res.send(products.length ? products : { result: "No products found" });
+});
+
+
+
+
+
+// Kisi product ko ID ke through delete karne ka route
+app.delete("/product/:id",verifyToken, async (req, res) => {
+  const result = await Product.deleteOne({ _id: req.params.id }); // ID match karke delete
+  res.send(result);
+});
+
+
+
+
+
+
+
+
+
+
+// Kisi ek product ki detail lana by ID
+
+app.get("/product/:id",verifyToken, async (req, res) => {
+  const result = await Product.findOne({ _id: req.params.id }); // ID ke through search
+  res.send(result || { result: "No record found" });
+});
+
+
+
+
+
+
+
+// Kisi product ko update karna by ID
+
+app.put("/product/:id",verifyToken, async (req, res) => {
+  const result = await Product.updateOne(
+    { _id: req.params.id },
+    { $set: req.body } // Jo naya data aaya usse update kar rahe hain
+  );
+  res.send(result);
+});
+
+
+
+
+
+
+// Search karna by keyword - name, category, company, etc. me
+
+app.get("/search/:key",verifyToken, async (req, res) => {
+  const result = await Product.find({
+    $or: [
+      { name: { $regex: req.params.key, $options: "i" } },
+      { category: { $regex: req.params.key, $options: "i" } },
+      { company: { $regex: req.params.key, $options: "i" } },
+      { price: { $regex: req.params.key, $options: "i" } },
+    ],
+  });
+  res.send(result); // Jo match hua uska result bhej rahe hain
+});
+
+
+
+
+
+
+// creating midddle ware for jwt 
+
+function verifyToken(req, res, next) {
+  let token = req.headers['authorization'];
+  
+  if (token) {
+    // Split by space (not empty string) to extract token from "Bearer <token>"
+    token = token.split(' ')[1];
+    console.warn("middleware called", token);
     
-  } catch (error) {
-    console.log("add-product error", error);
-
+    // Verify token
+    jwt.verify(token, jwtKey, (err, valid) => {
+      if (err) {
+        res.status(401).send({result: "Please provide valid token"});
+      } else {
+        next();
+      }
+    });
+  } else {
+    res.status(403).send({result: "Please provide token"});
   }
+}
+
+
+
+
+
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
-
-
-
-
-//  get product listing api 
-app.get("/products", async(req,res)=>{
-  let products= await Product.find();
-  if(products.length>0){
-    res.send(products);
-  }
-  else{
-    res.send({result:"No products found"});
-  }
-
-})
-
-
-// Start the server on port 3000 and log a message
-app.listen(3000);

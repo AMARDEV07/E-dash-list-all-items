@@ -6,18 +6,24 @@ import PrivateComp from "./components/PrivateComp";
 import LoginPage from "./components/LoginPage";
 import AddProduct from "./components/AddProduct";
 import ProductsList from "./components/ProductsList";
+import UpdateProduct from "./components/UpdateProduct";
+import ProductDetail from "./components/ProductDetail"; // Import the new component
 import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
+
       <Nav /> {/* Navigation visible on all pages */}
+
+      
       <Routes>
         {/* Protected Routes */}
         <Route element={<PrivateComp />}>
           <Route path="/" element={<ProductsList/>} />
           <Route path="/add" element={<AddProduct/>} />
-          <Route path="/update" element={<h1>update product Page</h1>} />
+          <Route path="/update/:id" element={<UpdateProduct/>} />
+          <Route path="/product/:id" element={<ProductDetail/>} /> {/* New route */}
           <Route path="/profile" element={<h1>visit profile</h1>} />
           <Route path="/logout" element={<h1>page logout</h1>} />
         </Route>
@@ -25,12 +31,9 @@ function App() {
         {/* Public Route */} 
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage/>} />
-
       </Routes>
       
-      <Footer />
-     
-    
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

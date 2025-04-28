@@ -16,7 +16,9 @@ body {
   justify-content: space-between;
   padding: 0 4rem;
   width: 100%;
-  background-color: gainsboro;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  background-color: rgb(102, 100, 100);
+ 
 }
 
 .logo-div {
@@ -32,10 +34,13 @@ body {
   gap: 4rem;
   padding: 1rem;
   list-style: none;
-  font-size: 1rem;
+  font-size: 1rem; 
+
+
 }
 .header li a {
   text-decoration: none;
+  color: white;
 }
 .footer {
   width: 100%;
@@ -86,13 +91,13 @@ body {
   padding-right: 13px;
   border-radius: 20px;
 }
-.Header-div{
+.Header-div {
   width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction:column ;
-  padding-left:4rem;
+  flex-direction: column;
+  padding-left: 4rem;
 }
 .signup-details input {
   display: block;
@@ -146,9 +151,6 @@ body {
 .password-input-wrapper {
   margin-top: -20px;
 }
-
-
-
 
 .login-details {
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
@@ -219,132 +221,327 @@ body {
   text-align: center;
   padding-right: 2rem;
   margin-top: 1rem;
-
 }
 .old-acc p {
   font-size: 0.9rem;
-
 }
-
-
-
 
 /* add product  */
-.add-product-main{
+.add-product-main {
   width: 100%;
- 
+
   /* background: red; */
 }
-.add-product-header{
+.add-product-header {
   background-color: green;
   margin-top: 4rem;
   width: 100%;
   text-align: center;
 }
-.add-product-inp-div{
+.add-product-inp-div {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.InputBox{
+.InputBox {
   width: 50%;
   margin-top: 2rem;
   padding: 1rem;
 }
-.invalid-input{
+.invalid-input {
   color: red;
   width: 50%;
   font-size: 0.9rem;
-
-
 }
-.add-product-btn-div{
+.add-product-btn-div {
   width: 100%;
   margin-top: 2rem;
   text-align: center;
 }
-.addbtn{
+.addbtn {
   width: 10%;
   padding: 1rem;
 }
 
 /* product listing  */
-.product-list-header h1{
-  margin-top: 3rem;
-  background-color: green;
-}
-.product-div{
+
+.product-div {
   width: 100%;
+  min-height: 100vh;
+  background-image: url(assets/1351387.jpeg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
   text-align: center;
 }
-.product-list-header{
-  width: 100%;
-  margin-top: 3rem;
-  text-align: center;
- 
+
+.product-div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(2px); 
+  background-color: rgba(40, 38, 38, 0.2);
+  z-index: 1;
 }
-.product-list-ul{
+
+
+/* Content ko blur ke upar lana hoga */
+.product-div > * {
+  position: relative;
+  z-index: 2;
+}
+
+.product-list-header {
+  padding-top: 4rem;
+  width: 100%;
+}
+.product-list-header h1 {
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+}
+.product-list-header input {
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  background-color: #ededed;
+  border: none;
+  width: 40%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.product-list-ul {
   width: 80%;
   margin: 0 auto;
+  background-color: #cacaca;
+  border-radius:10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   list-style: none;
 }
 
-
-
-
-.product-list-ul li{
- 
-  border: 2px solid gainsboro;
-  border-radius: 10px 10px 10px 10px;
-  width: 25%;
+.product-list-ul li {
+  width: 20%;
   padding: 1rem;
-  height: 4rem;
+  font-size: 1.1rem;
  
 }
-.product-list{
+
+.product-list {
   width: 100%;
   margin-top: 2rem;
 }
- 
-.product-list ul{
+
+.product-list ul {
   width: 80%;
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   margin: 0 auto;
 }
-.product-list ul li{
+.product-list ul li {
   list-style: none;
-
-  border: 2px solid gainsboro;
-  border-radius: 10px 10px 10px 10px;
+  color: white;
+  background-color: rgb(74, 73, 73);
   width: 25%;
-  padding: 0.5rem;
+  padding-top: 1rem;
   font-style: italic;
+  height: 4rem;
 
-  height: 3rem;
- 
-  
+
 }
 
+.opration {
+  padding-left: 1.5rem;
+margin-right: 13px;
 
+}
+ 
 
+/* Product Detail Styles */
+.product-detail-container {
+  width: 80%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.product-detail-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.product-detail-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-company {
+  color: #777;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.product-category {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-right: 1rem;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2a9d8f;
+  margin: 1rem 0;
+}
+
+.product-image {
+  margin: 1rem 0 2rem 0;
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-description {
+  margin: 2rem 0;
+}
+
+.product-description h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.product-description p {
+  line-height: 1.6;
+  color: #555;
+}
+
+.product-features {
+  margin: 2rem 0;
+}
+
+.product-features h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.product-features ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.product-features li {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.product-specifications {
+  margin: 2rem 0;
+}
+
+.product-specifications h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.product-specifications table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-specifications tr {
+  border-bottom: 1px solid #eee;
+}
+
+.product-specifications td {
+  padding: 0.8rem;
+}
+
+.spec-name {
+  font-weight: bold;
+  width: 30%;
+  color: #444;
+}
+
+.product-actions {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  background-color: #444;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+.product-name-link:hover {
+  color: #2a9d8f;
+}
+
+.view-details {
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.view-details:hover {
+  background-color: #2d3748;
+}
+
+/* Loading and error states */
+.product-detail-loading,
+.product-detail-error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #555;
+}
 
 @media (max-width: 957px) {
   .signup-details {
     width: 70%;
-    padding:3rem 0rem;
+    padding: 3rem 0rem;
     border: 1px solid gainsboro;
   }
   .signup-details .icon {
     margin-right: 3rem;
   }
-  .Header-div .icon{
+  .Header-div .icon {
     margin-left: 2rem;
   }
   .signup-details input {
@@ -363,55 +560,45 @@ body {
 @media (max-width: 670px) {
   .signup-details {
     width: 90%;
-    padding:3rem 0rem;
+    padding: 3rem 0rem;
   }
-  
-  }
- 
- 
+}
 
 @media (max-width: 515px) {
-  .logo-div{
-    width:50%;
+  .logo-div {
+    width: 50%;
     gap: 0.2rem;
-   
   }
-  
-  .logo-div span{
-   display: none;
-   
+
+  .logo-div span {
+    display: none;
   }
- .header ul{
+  .header ul {
+    gap: 1rem;
+    font-size: 1rem;
+    padding-left: 3rem;
+  }
+  .Header-div {
+    width: 100%;
+    margin-left: -2rem;
+  }
+  .Header-div .icon {
+    margin-left: 3.5rem;
+  }
 
-  gap: 1rem;
-  font-size:1rem ;
-  padding-left: 3rem;
- }
- .Header-div{
-  width: 100%;
- margin-left: -2rem;
-  
-}
-.Header-div .icon{
-  margin-left: 3.5rem;
-}
-
- .signup-h1{
-  width: 100%;
-  font-size: 1.5rem;
- }
- .sigup-p{
-  font-size: 10px;
- }
- .old-acc p {
-  font-size: 0.6rem;
-  margin-left: 3rem;
-
-
-
-}
-.fa-solid, .fas {
-  font-size: 13px;
-}
-
+  .signup-h1 {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+  .sigup-p {
+    font-size: 10px;
+  }
+  .old-acc p {
+    font-size: 0.6rem;
+    margin-left: 3rem;
+  }
+  .fa-solid,
+  .fas {
+    font-size: 13px;
+  }
 }

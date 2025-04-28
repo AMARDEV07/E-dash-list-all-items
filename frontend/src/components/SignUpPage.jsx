@@ -10,8 +10,9 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
-  // Navigation hook
+ 
   const navigate = useNavigate();
+
 
   // If user already logged in, redirect to home
   useEffect(() => {
@@ -21,8 +22,10 @@ function SignUpPage() {
     }
   }, []);
 
+
   // Submit handler
   const submit = async () => {
+
     // === Name Validation ===
     if (!name.trim()) {
       toast.error("Name is required!");
@@ -32,6 +35,7 @@ function SignUpPage() {
       toast.error("Name must contain only letters and be at least 2 characters.");
       return;
     }
+
 
     // === Email Validation ===
     if (!email.trim()) {
@@ -68,11 +72,12 @@ function SignUpPage() {
 
     result = await result.json();
 
-    // === Handle Result ===
+    // === Handle Result and save them in local storage ===
     if (result) {
       toast.success("Registration Completed!");
-      localStorage.setItem("user", JSON.stringify(result)); // Save to localStorage
-      setTimeout(() => navigate("/"), 2000); // Delay to show toast
+      localStorage.setItem("user", JSON.stringify(result.result)); 
+      localStorage.setItem("token", JSON.stringify(result.auth));// Save to localStorage
+      setTimeout(() => navigate("/"), 1000); //jesi login hoga navigate krna home pa
     }
   };
 
@@ -131,6 +136,7 @@ function SignUpPage() {
         </div>
 
         {/* === right image section === */}
+        
         <div className="signup-img-div">
           <img src="/src/assets/signup.jpg" alt="Signup Visual" />
         </div>

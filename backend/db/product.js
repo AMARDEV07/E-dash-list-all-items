@@ -1,13 +1,16 @@
+// Update Product.js
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
     name: String,
-    price:String,
-    category:String,
-    userId:String,
-    compony:String
-
+    price: String,
+    category: String,
+    userId: String,
+    company: String,
+    description: String,    // Detailed product description
+    features: [String],     // Array of features
+    specifications: Object, // Technical specifications
+    imageUrl: String        // Product image
 });
-//create schema form signup user
 
 module.exports = mongoose.model("products", productSchema);

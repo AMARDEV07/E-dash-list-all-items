@@ -16,7 +16,9 @@ function LoginPage() {
   // Using useEffect to redirect if the user is already logged in
   useEffect(() => {
     const auth = localStorage.getItem("user");
-    if (auth) { navigate("/"); }
+    if (auth) { 
+      navigate("/");
+     }
   }, []);
 
 
@@ -32,11 +34,10 @@ function LoginPage() {
     if (email === "" || password === "") {
       alert("form Bhar la ladlaa kahi ki dari hori")
       toast.warn("Please fill in both email and password");
-
       return;
 
     }
-    try {
+    
       let result = await fetch("http://localhost:3000/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -46,19 +47,17 @@ function LoginPage() {
       result = await result.json();
 
       // If user is found, store data in localStorage and navigate
-      if (result.name) {
+      if (result.auth) {
         toast.success("Login Successful!");
-        localStorage.setItem("user", JSON.stringify(result));
-        setTimeout(() => navigate("/"), 2000);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("token", JSON.stringify(result.auth));
+        setTimeout(() => navigate("/"), 1000);
 
       } else {
         toast.error("No user found");
       }
 
-    }
-    catch (error) {
-      toast.error("Login Failed!");
-    }
+   
 
   };
 
@@ -90,18 +89,17 @@ function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span
-              onClick={() => setShowPassword(!showPassword)} // Toggle password visibility state
-              style={{
+
+            <span onClick={() => setShowPassword(!showPassword)} // Toggle password visibility state
+               style={{
                 cursor: "pointer",
                 marginLeft: "-70px",
                 fontSize: "20px",
                 color: "grey" 
-              }}
-            >
-              {showPassword ?  <i className="fa-solid fa-eye"></i>:<i className="fa-solid fa-eye-slash"></i> }
-
+              }} > {showPassword ?  <i className="fa-solid fa-eye"></i>:<i className="fa-solid fa-eye-slash"></i> }
             </span>
+
+            
           </div>
 
           <button onClick={handleLogin}>Login</button>
