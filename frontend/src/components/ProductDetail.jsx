@@ -27,6 +27,7 @@ function ProductDetail() {
       const data = await result.json();
       
       setProduct(data);
+      
     } catch (error) {
       console.error("Error fetching product details:", error);
     } finally {
