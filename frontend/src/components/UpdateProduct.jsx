@@ -45,10 +45,12 @@ function UpdateProduct() {
           "Content-Type": "application/json",
            authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
         },
+        //we found data in json so we change them into  stringfy..
         body: JSON.stringify({ name, price, category, company })
       });
 
       const data = await result.json();
+
       navigate('/'); // redirect to product list
     
   };

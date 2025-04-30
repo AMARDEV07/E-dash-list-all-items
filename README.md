@@ -29,7 +29,7 @@ E-Dash is a full-stack e-commerce dashboard application that allows users to man
 ## Product Management
 - Display a list of all products with real-time search functionality.
 - Add new products including name, price, company, category, features, description, and technical specifications.
-- Edit existing product information effortlessly.
+- Edit existing product information effortlessly. 
 - Delete products when no longer needed.
 - View detailed information about each product including images and specifications.
 

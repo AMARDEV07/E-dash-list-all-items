@@ -41,6 +41,7 @@ function ProductsList() {
     });
 
     const data = await response.json();
+
     if (data) {
       getProducts(); // Delete ke baad list refresh
     }
@@ -61,6 +62,7 @@ function ProductsList() {
         }
       })
       result = await result.json();
+      
       if (result) {
         setProducts(result); // Search result show karo
       }

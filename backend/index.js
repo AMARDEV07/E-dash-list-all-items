@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("./db/config");
 const User = require("./db/user");
-const Product = require("./db/Product");
+const Product = require("./db/product"); // Fixed case sensitivity issue here
 const jwt = require("jsonwebtoken");
 const jwtKey = "e-comm"; 
 
@@ -12,8 +12,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-
 
 // User Register
 app.post("/register", async (req, res) => {
@@ -31,12 +29,6 @@ app.post("/register", async (req, res) => {
   });
 });
 
-
-
-
-
-
-
 // User Login karne ka route
 app.post("/login", async (req, res) => {
   
@@ -48,14 +40,12 @@ app.post("/login", async (req, res) => {
     if (user) {
       // Token generate karke client ko bhej rahe hain sign function send with 2
      
-
       jwt.sign({ user }, jwtKey, { expiresIn: "2h" }, (err, token) => {
         if (err) {
           res.send({ result: "something went wrong" });
         }
         res.send({ user, auth: token });
       })
-
 
     } else {
       res.send({ result: "No user found" });
@@ -65,33 +55,18 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 // Naya product add karne ka route
-
 app.post("/add-product",verifyToken, async (req, res) => {
   const product = new Product(req.body); 
   const result = await product.save(); 
   res.send(result); 
 });
 
-
-
-
 // Sare products fetch(list) karne ka route
-
 app.get("/products",verifyToken, async (req, res) => {
   const products = await Product.find();
   res.send(products.length ? products : { result: "No products found" });
 });
-
-
-
-
 
 // Kisi product ko ID ke through delete karne ka route
 app.delete("/product/:id",verifyToken, async (req, res) => {
@@ -99,30 +74,13 @@ app.delete("/product/:id",verifyToken, async (req, res) => {
   res.send(result);
 });
 
-
-
-
-
-
-
-
-
-
 // Kisi ek product ki detail lana by ID
-
 app.get("/product/:id",verifyToken, async (req, res) => {
   const result = await Product.findOne({ _id: req.params.id }); // ID ke through search
   res.send(result || { result: "No record found" });
 });
 
-
-
-
-
-
-
 // Kisi product ko update karna by ID
-
 app.put("/product/:id",verifyToken, async (req, res) => {
   const result = await Product.updateOne(
     { _id: req.params.id },
@@ -131,13 +89,7 @@ app.put("/product/:id",verifyToken, async (req, res) => {
   res.send(result);
 });
 
-
-
-
-
-
 // Search karna by keyword - name, category, company, etc. me
-
 app.get("/search/:key",verifyToken, async (req, res) => {
   const result = await Product.find({
     $or: [
@@ -150,13 +102,7 @@ app.get("/search/:key",verifyToken, async (req, res) => {
   res.send(result); // Jo match hua uska result bhej rahe hain
 });
 
-
-
-
-
-
 // creating midddle ware for jwt 
-
 function verifyToken(req, res, next) {
   let token = req.headers['authorization'];
   
@@ -177,11 +123,6 @@ function verifyToken(req, res, next) {
     res.status(403).send({result: "Please provide token"});
   }
 }
-
-
-
-
-
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
